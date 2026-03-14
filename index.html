@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mustafa Elgendy – Flutter & Android Developer</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --blue:#0553B1;--blue2:#027DFD;--cyan:#54C5F8;--deep:#042A6F;--dark:#0A1628;
+  --white:#fff;--off:#F4F8FF;--g1:#EEF3FB;--g3:#C5D3E8;--g5:#7A90B0;--g7:#3B4F6B;
+  --r:12px;--sh1:0 2px 8px rgba(5,83,177,.08);--sh2:0 8px 32px rgba(5,83,177,.14);--sh3:0 24px 64px rgba(5,83,177,.2);
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --mono:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;
+}
+body{font-family:var(--font);background:var(--white);color:var(--dark);line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:66px;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--g1);box-shadow:var(--sh1)}
+.logo{font-weight:800;font-size:1.1rem;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:4px;letter-spacing:-.02em}
+.br{color:var(--cyan);font-family:var(--mono);font-size:1.2rem}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--g7);font-size:.88rem;font-weight:500;position:relative;padding-bottom:2px;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--blue2);border-radius:2px;transition:width .25s}
+.nav-links a:hover,.nav-links a:hover::after{color:var(--blue);width:100%}
+.nav-btn{background:var(--blue)!important;color:#fff!important;padding:7px 18px!important;border-radius:8px!important}
+.nav-btn:hover{background:var(--blue2)!important}
+.nav-btn::after{display:none!important}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 6% 60px;position:relative;overflow:hidden;background:var(--white)}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 40%,rgba(84,197,248,.12) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 10% 80%,rgba(5,83,177,.06) 0%,transparent 70%)}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(5,83,177,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(5,83,177,.04) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%)}
+.hcontent{position:relative;z-index:1;max-width:640px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--g1);border:1px solid var(--g3);border-radius:100px;padding:5px 14px 5px 8px;font-size:.76rem;font-weight:600;color:var(--blue);margin-bottom:1.4rem;animation:up .6s ease both}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.35)}}
+.hname{font-size:clamp(2.4rem,5.5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-.035em;animation:up .6s .1s ease both}
+.hl{color:var(--blue);position:relative;display:inline-block}
+.hl::after{content:'';position:absolute;bottom:2px;left:0;right:0;height:4px;background:var(--cyan);opacity:.35;border-radius:2px}
+.hrole{font-family:var(--mono);font-size:clamp(.9rem,2vw,1.1rem);color:var(--g5);margin-top:.75rem;animation:up .6s .2s ease both}
+.typed{color:var(--blue2)}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--blue2);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hdesc{margin-top:1.4rem;font-size:1rem;color:var(--g7);line-height:1.8;max-width:520px;animation:up .6s .3s ease both}
+.hbtns{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;animation:up .6s .4s ease both}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:12px 26px;border-radius:10px;font-weight:700;font-size:.93rem;text-decoration:none;box-shadow:0 4px 20px rgba(5,83,177,.3);transition:background .2s,transform .2s}
+.btn-p:hover{background:var(--blue2);transform:translateY(-2px)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--blue);padding:12px 26px;border-radius:10px;border:1.5px solid var(--blue);font-weight:700;font-size:.93rem;text-decoration:none;transition:background .2s,transform .2s}
+.btn-s:hover{background:var(--g1);transform:translateY(-2px)}
+.hphone{position:absolute;right:6%;top:50%;transform:translateY(-50%);z-index:1;animation:up .7s .2s ease both}
+@media(max-width:860px){.hphone{display:none}}
+.phone{width:210px;height:420px;background:var(--dark);border-radius:34px;border:7px solid #1a2a42;box-shadow:0 32px 80px rgba(5,83,177,.25),0 0 0 1px rgba(84,197,248,.1);position:relative;overflow:hidden}
+.notch{width:76px;height:22px;background:#1a2a42;border-radius:0 0 12px 12px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2}
+.pscreen{width:100%;height:100%;background:linear-gradient(160deg,var(--deep) 0%,var(--blue) 50%,var(--blue2) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px}
+.flogo{font-size:3.5rem}
+.pname-t{color:#fff;font-weight:800;font-size:.95rem;letter-spacing:.05em}
+.pbar{width:80%;height:7px;background:rgba(255,255,255,.14);border-radius:4px}
+.pbar.s{width:50%}
+.pdots{display:flex;gap:6px;margin-top:6px}
+.pdot{width:7px;height:7px;border-radius:50%}
+.ftag{position:absolute;background:#fff;border-radius:9px;padding:7px 13px;box-shadow:var(--sh2);font-size:.72rem;font-weight:700;color:var(--blue);display:flex;align-items:center;gap:5px}
+.ftag.tl{top:-8px;left:-90px;animation:flt 3s ease-in-out infinite}
+.ftag.br{bottom:20px;right:-100px;animation:flt 3s 1.5s ease-in-out infinite}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* SHARED */
+section{padding:88px 6%}
+.slabel{font-family:var(--mono);font-size:.75rem;color:var(--blue2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem}
+.stitle{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.025em;color:var(--dark);line-height:1.15;margin-bottom:.9rem}
+.sdiv{width:46px;height:4px;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:2px;margin-bottom:2.4rem}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ABOUT */
+#about{background:var(--off)}
+.awrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1100px;margin:0 auto}
+@media(max-width:760px){.awrap{grid-template-columns:1fr}.aimg{display:none}}
+.atext p{color:var(--g7);font-size:1rem;line-height:1.82;margin-bottom:1rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.8rem}
+.stat{background:#fff;border-radius:var(--r);padding:1.1rem;border:1px solid var(--g1);box-shadow:var(--sh1);transition:transform .2s,box-shadow .2s}
+.stat:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.sn{font-size:1.9rem;font-weight:800;color:var(--blue);line-height:1}
+.sl{font-size:.76rem;color:var(--g5);margin-top:3px;font-weight:500}
+.aimg{display:flex;align-items:center;justify-content:center}
+.avframe{width:260px;height:260px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));padding:4px;box-shadow:0 16px 48px rgba(5,83,177,.22);position:relative}
+.avinner{width:100%;height:100%;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:4.5rem}
+.avring{position:absolute;inset:-12px;border-radius:50%;border:2px dashed rgba(5,83,177,.2);animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* EXPERIENCE */
+#experience{background:#fff}
+.ewrap{max-width:780px;margin:0 auto}
+.eitem{display:flex;gap:1.5rem;margin-bottom:1.5rem;padding:1.4rem;background:var(--off);border-radius:14px;border:1px solid var(--g1);transition:box-shadow .2s,transform .2s}
+.eitem:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.edot{width:14px;height:14px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px;box-shadow:0 0 0 4px rgba(5,83,177,.15)}
+.erole{font-weight:700;font-size:1rem;color:var(--dark)}
+.emeta{font-size:.76rem;color:var(--g5);font-family:var(--mono);margin:.2rem 0 .6rem}
+.ebody ul{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.ebody li{font-size:.88rem;color:var(--g7);display:flex;gap:.5rem;align-items:flex-start}
+.ebody li::before{content:'→';color:var(--blue2);flex-shrink:0;font-weight:700}
+
+/* PROJECTS */
+#projects{background:var(--off)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem;max-width:1100px;margin:0 auto}
+.pcard{border-radius:16px;border:1px solid var(--g1);background:#fff;overflow:hidden;box-shadow:var(--sh1);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--sh3)}
+.ptop{height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.pbody{padding:1.2rem;flex:1;display:flex;flex-direction:column}
+.ptitle{font-size:.98rem;font-weight:700;color:var(--dark);margin-bottom:.3rem}
+.pdesc{font-size:.83rem;color:var(--g5);line-height:1.65;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:.8rem}
+.tag{font-size:.67rem;font-weight:600;padding:3px 9px;border-radius:100px;background:var(--g1);color:var(--blue);border:1px solid var(--g3)}
+.plink{display:inline-flex;align-items:center;gap:4px;font-size:.8rem;font-weight:700;color:var(--blue);text-decoration:none;margin-top:.8rem;transition:color .2s}
+.plink:hover{color:var(--blue2)}
+
+/* SKILLS */
+#skills{background:var(--dark);color:#fff}
+#skills .stitle{color:#fff}
+#skills .slabel{color:var(--cyan)}
+#skills .sdiv{background:linear-gradient(90deg,var(--cyan),var(--blue2))}
+.skwrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;max-width:1100px;margin:0 auto}
+@media(max-width:700px){.skwrap{grid-template-columns:1fr}}
+.sgtitle{font-size:.72rem;font-family:var(--mono);color:var(--cyan);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
+.skitem{margin-bottom:1rem}
+.skrow{display:flex;justify-content:space-between;margin-bottom:5px}
+.skname{font-size:.88rem;font-weight:500;color:rgba(255,255,255,.85)}
+.skpct{font-size:.74rem;font-family:var(--mono);color:var(--cyan)}
+.barbg{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.barfill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.pills{display:flex;flex-wrap:wrap;gap:9px}
+.pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:9px 13px;display:flex;align-items:center;gap:7px;font-size:.82rem;color:rgba(255,255,255,.75);transition:background .2s,border-color .2s,color .2s}
+.pill:hover{background:rgba(5,83,177,.3);border-color:var(--blue2);color:#fff}
+
+/* CERTS */
+#certs{background:var(--off)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem;max-width:1100px;margin:0 auto}
+.ccard{background:#fff;border:1px solid var(--g1);border-radius:14px;padding:1.1rem 1.3rem;box-shadow:var(--sh1);display:flex;align-items:flex-start;gap:11px;transition:transform .2s,box-shadow .2s}
+.ccard:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.cicon{font-size:1.7rem;flex-shrink:0}
+.ctitle{font-weight:700;font-size:.88rem;color:var(--dark);margin-bottom:2px}
+.corg{font-size:.74rem;color:var(--g5);font-family:var(--mono)}
+
+/* CONTACT */
+#contact{background:#fff}
+.conwrap{max-width:660px;margin:0 auto;text-align:center}
+.condesc{color:var(--g7);font-size:1rem;line-height:1.78;margin-bottom:2rem}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.9rem;margin-bottom:2rem}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--g1);border:1px solid var(--g3);border-radius:10px;padding:9px 15px;font-size:.83rem;font-weight:500;color:var(--g7);text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+.chip:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.cform{display:flex;flex-direction:column;gap:1rem;text-align:left}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:560px){.frow{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:.81rem;font-weight:700;color:var(--g7)}
+.fg input,.fg textarea{padding:11px 13px;border-radius:9px;border:1.5px solid var(--g3);font-family:var(--font);font-size:.9rem;color:var(--dark);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+.fg input:focus,.fg textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(2,125,253,.12)}
+.fg textarea{resize:vertical;min-height:120px}
+.fbtn{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:var(--font);font-size:.97rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(5,83,177,.28);transition:background .2s,transform .2s}
+.fbtn:hover{background:var(--blue2);transform:translateY(-1px)}
+.socials{display:flex;justify-content:center;gap:.9rem;margin-top:2rem}
+.soc{width:43px;height:43px;border-radius:10px;background:#fff;border:1.5px solid var(--g3);display:flex;align-items:center;justify-content:center;color:var(--blue);text-decoration:none;box-shadow:var(--sh1);transition:background .2s,border-color .2s,transform .2s,color .2s}
+.soc:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateY(-2px)}
+
+footer{background:var(--dark);color:rgba(255,255,255,.4);text-align:center;padding:1.8rem 5%;font-size:.77rem;font-family:var(--mono)}
+footer span{color:var(--cyan)}
+.toast{position:fixed;bottom:28px;right:28px;z-index:500;background:var(--blue);color:#fff;padding:13px 22px;border-radius:11px;font-weight:700;font-size:.88rem;box-shadow:var(--sh3);transform:translateY(80px);opacity:0;transition:transform .4s,opacity .4s}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:600px){.nav-links{gap:.8rem}.nav-links li:not(:last-child){display:none}.hbtns{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#hero"><span class="br">{</span>&nbsp;Mustafa&nbsp;<span class="br">}</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-btn">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hbg"></div>
+  <div class="hgrid"></div>
+  <div class="hcontent">
+    <div class="badge"><span class="dot"></span>&nbsp;Open to Freelance &amp; Full-Time Roles</div>
+    <h1 class="hname">Hi, I'm<br><span class="hl">Mustafa Elgendy</span></h1>
+    <p class="hrole">&gt;&nbsp;<span class="typed" id="typed"></span><span class="cursor"></span></p>
+    <p class="hdesc">Junior Mobile Developer with 3+ years delivering Android &amp; Flutter apps with scalable architecture and clean code. Passionate about building production-ready, high-performance mobile experiences.</p>
+    <div class="hbtns">
+      <a href="#projects" class="btn-p">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        View Projects
+      </a>
+      <a href="#contact" class="btn-s">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Get In Touch
+      </a>
+    </div>
+  </div>
+  <div class="hphone">
+    <div style="position:relative">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="pscreen">
+          <div class="flogo">🐦</div>
+          <div class="pname-t">Flutter Dev</div>
+          <div class="pbar"></div><div class="pbar s"></div>
+          <div class="pdots">
+            <div class="pdot" style="background:var(--cyan)"></div>
+            <div class="pdot" style="background:rgba(255,255,255,.3)"></div>
+            <div class="pdot" style="background:rgba(255,255,255,.15)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ftag tl">📱 iOS &amp; Android</div>
+      <div class="ftag br">⚡ 60fps Smooth</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="awrap">
+    <div class="reveal">
+      <div class="slabel">// about me</div>
+      <h2 class="stitle">Passionate about mobile that just works</h2>
+      <div class="sdiv"></div>
+      <div class="atext">
+        <p>I'm a Mobile Developer based in Cairo &amp; Alexandria, Egypt, specialising in Flutter and Android development. I hold a Computer Science degree from Kafr El Sheikh University (2021) and have been honing my craft through real-world projects, freelance work, and courses at Udacity and ITI.</p>
+        <p>I care deeply about clean architecture, scalable code, and delivering apps on time. I've worked in Agile Scrum teams, set up CI/CD pipelines with GitHub Actions, and consistently optimised app performance — including reducing UI frame rendering time by 25% on a social media app.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="sn">3+</div><div class="sl">Years Experience</div></div>
+        <div class="stat"><div class="sn">4</div><div class="sl">Production Apps</div></div>
+        <div class="stat"><div class="sn">25%</div><div class="sl">Render Time Reduced</div></div>
+        <div class="stat"><div class="sn">100%</div><div class="sl">On-Time Delivery</div></div>
+      </div>
+    </div>
+    <div class="aimg reveal">
+      <div class="avframe">
+        <div class="avinner">🧑‍💻</div>
+        <div class="avring"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="ewrap">
+    <div class="reveal">
+      <div class="slabel">// work experience</div>
+      <h2 class="stitle">Where I've worked</h2>
+      <div class="sdiv"></div>
+    </div>
+    <div class="eitem reveal">
+      <div class="edot"></div>
+      <div class="ebody">
+        <div class="erole">Flutter Developer — Governors App</div>
+        <div class="emeta">Jan 2024 – Feb 2024 · Contract</div>
+        <ul>
+          <li>Developed a social media app with user profiles, chat rooms, and video conferencing.</li>
+          <li>Integrated Firebase for real-time messaging and authentication.</li>
+          <li>Delivered 100% on-time using Agile Scrum practices.</li>
+          <li>Optimised UI rendering, reducing frame rendering time by 25%.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="eitem reveal">
+      <div class="edot" style="background:var(--cyan)"></div>
+      <div class="ebody">
+        <div class="erole">Flutter Developer — Chat Application (Freelance)</div>
+        <div class="emeta">2021 – 2022 · Freelance</div>
+        <ul>
+          <li>Built a cross-platform chat app with Flutter &amp; Firebase with secure authentication.</li>
+          <li>Implemented push notifications and optimised backend calls for faster delivery.</li>
+          <li>Deployed test builds via Firebase App Distribution.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="eitem reveal">
+      <div class="edot" style="background:var(--deep)"></div>
+      <div class="ebody">
+        <div class="erole">Android Developer — Sport Club UI App (Freelance)</div>
+        <div class="emeta">2020 – 2021 · Freelance</div>
+        <ul>
+          <li>Designed and implemented an Android UI app for a sports club to boost member engagement.</li>
+          <li>Delivered with full client documentation and training.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="reveal">
+      <div class="slabel">// key projects</div>
+      <h2 class="stitle">Things I've built</h2>
+      <div class="sdiv"></div>
+    </div>
+    <div class="pgrid">
+      <div class="pcard reveal">
+        <div class="ptop" style="background:linear-gradient(135deg,#0553B1,#027DFD)">💬</div>
+        <div class="pbody">
+          <div class="ptitle">Governors App — Social Media</div>
+          <div class="pdesc">Social platform with profiles, real-time chat rooms, and video conferencing. Firebase auth &amp; Firestore. 25% faster frame rendering achieved.</div>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">Firebase</span><span class="tag">Video Conf</span><span class="tag">Agile</span></div>
+          <a href="https://github.com/MustafaElgendy" target="_blank" class="plink">→ GitHub</a>
+        </div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ptop" style="background:linear-gradient(135deg,#014B8C,#54C5F8)">📨</div>
+        <div class="pbody">
+          <div class="ptitle">Chat Application — Flutter</div>
+          <div class="pdesc">Cross-platform messaging app with secure Firebase auth, push notifications, and optimised backend calls for fast message delivery.</div>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Firebase</span><span class="tag">FCM</span></div>
+          <a href="https://github.com/MustafaElgendy" target="_blank" class="plink">→ GitHub</a>
+        </div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ptop" style="background:linear-gradient(135deg,#0B1F4A,#0553B1)">🛒</div>
+        <div class="pbody">
+          <div class="ptitle">Goland App — E-Commerce</div>
+          <div class="pdesc">Android e-commerce app for local craftsmen. Python/PostgreSQL backend API, SQLite local storage, MVC architecture.</div>
+          <div class="tags"><span class="tag">Android</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">PostgreSQL</span></div>
+          <a href="https://github.com/MustafaElgendy" target="_blank" class="plink">→ GitHub</a>
+        </div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ptop" style="background:linear-gradient(135deg,#042A6F,#54C5F8)">🏅</div>
+        <div class="pbody">
+          <div class="ptitle">Sport Club UI — Android</div>
+          <div class="pdesc">Android UI application for a sports club to boost member engagement. Delivered with full documentation and client training.</div>
+          <div class="tags"><span class="tag">Android</span><span class="tag">Java</span><span class="tag">UI Design</span></div>
+          <a href="https://github.com/MustafaElgendy" target="_blank" class="plink">→ GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <div class="slabel">// expertise</div>
+    <h2 class="stitle">What I work with</h2>
+    <div class="sdiv"></div>
+  </div>
+  <div class="skwrap">
+    <div class="reveal">
+      <div class="sgtitle">// proficiency</div>
+      <div class="skitem"><div class="skrow"><span class="skname">Flutter &amp; Dart</span><span class="skpct">90%</span></div><div class="barbg"><div class="barfill" data-w="90"></div></div></div>
+      <div class="skitem"><div class="skrow"><span class="skname">Android (Java / Kotlin)</span><span class="skpct">85%</span></div><div class="barbg"><div class="barfill" data-w="85"></div></div></div>
+      <div class="skitem"><div class="skrow"><span class="skname">State Management (BLoC / Provider)</span><span class="skpct">82%</span></div><div class="barbg"><div class="barfill" data-w="82"></div></div></div>
+      <div class="skitem"><div class="skrow"><span class="skname">Firebase &amp; REST APIs</span><span class="skpct">80%</span></div><div class="barbg"><div class="barfill" data-w="80"></div></div></div>
+      <div class="skitem"><div class="skrow"><span class="skname">Python &amp; PostgreSQL</span><span class="skpct">70%</span></div><div class="barbg"><div class="barfill" data-w="70"></div></div></div>
+      <div class="skitem"><div class="skrow"><span class="skname">CI/CD &amp; Unit Testing</span><span class="skpct">72%</span></div><div class="barbg"><div class="barfill" data-w="72"></div></div></div>
+    </div>
+    <div class="reveal">
+      <div class="sgtitle">// technologies &amp; tools</div>
+      <div class="pills">
+        <div class="pill">🐦 Flutter</div>
+        <div class="pill">🎯 Dart</div>
+        <div class="pill">☕ Java</div>
+        <div class="pill">🦺 Kotlin</div>
+        <div class="pill">🔥 Firebase</div>
+        <div class="pill">🗃️ SQLite</div>
+        <div class="pill">🐘 PostgreSQL</div>
+        <div class="pill">🐍 Python</div>
+        <div class="pill">📦 BLoC</div>
+        <div class="pill">🔄 Provider</div>
+        <div class="pill">🌐 REST APIs</div>
+        <div class="pill">🐙 Git &amp; GitHub</div>
+        <div class="pill">🚀 GitHub Actions</div>
+        <div class="pill">🧪 Unit Testing</div>
+        <div class="pill">📬 Postman</div>
+        <div class="pill">🏃 Agile Scrum</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="reveal">
+    <div class="slabel">// education &amp; certifications</div>
+    <h2 class="stitle">Learning &amp; credentials</h2>
+    <div class="sdiv"></div>
+  </div>
+  <div class="cgrid">
+    <div class="ccard reveal"><div class="cicon">🎓</div><div><div class="ctitle">B.Sc. Computer Science</div><div class="corg">Kafr El Sheikh University · 2021 · Good</div></div></div>
+    <div class="ccard reveal"><div class="cicon">🏅</div><div><div class="ctitle">Android Development with Java</div><div class="corg">Udacity</div></div></div>
+    <div class="ccard reveal"><div class="cicon">🏅</div><div><div class="ctitle">Android Dev (Java &amp; Kotlin)</div><div class="corg">ITI – Information Technology Institute</div></div></div>
+    <div class="ccard reveal"><div class="cicon">📜</div><div><div class="ctitle">Flutter Development</div><div class="corg">freeCodeCamp</div></div></div>
+    <div class="ccard reveal"><div class="cicon">📜</div><div><div class="ctitle">APIs with Python (OOP)</div><div class="corg">freeCodeCamp</div></div></div>
+    <div class="ccard reveal"><div class="cicon">📜</div><div><div class="ctitle">PostgreSQL &amp; Postman</div><div class="corg">freeCodeCamp</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="conwrap reveal">
+    <div class="slabel">// let's connect</div>
+    <h2 class="stitle">Got a project in mind?</h2>
+    <div class="sdiv" style="margin:0 auto 1.4rem"></div>
+    <p class="condesc">I'm open to freelance projects, full-time roles, and collaborations. Based in Cairo &amp; Alexandria — available remotely worldwide. Let's build something great together.</p>
+    <div class="chips">
+      <a href="mailto:mustafa.elgendy97@hotmail.com" class="chip">✉️ mustafa.elgendy97@hotmail.com</a>
+      <a href="tel:+201013291007" class="chip">📞 +20 101 329 1007</a>
+      <span class="chip">📍 Cairo &amp; Alexandria, Egypt</span>
+    </div>
+    <form class="cform" onsubmit="handleSubmit(event)">
+      <div class="frow">
+        <div class="fg"><label>First Name</label><input type="text" placeholder="John" required/></div>
+        <div class="fg"><label>Last Name</label><input type="text" placeholder="Doe" required/></div>
+      </div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="john@example.com" required/></div>
+      <div class="fg"><label>Subject</label><input type="text" placeholder="Flutter App Project"/></div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell me about your project…" required></textarea></div>
+      <button type="submit" class="fbtn">Send Message →</button>
+    </form>
+    <div class="socials">
+      <a href="https://github.com/MustafaElgendy" target="_blank" class="soc" title="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.166 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.699-2.782.602-3.369-1.34-3.369-1.34-.455-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.091-.646.349-1.086.635-1.337-2.22-.251-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.252-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.307.678.917.678 1.852 0 1.335-.012 2.415-.012 2.741 0 .269.18.579.688.481A10.019 10.019 0 0022 12c0-5.523-4.477-10-10-10z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/mostafaelgendy-514261189" target="_blank" class="soc" title="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://hackerrank.com/profile/mustafa_elgendy1" target="_blank" class="soc" title="HackerRank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1.285 0 9.75 4.886 10.392 6 .645 1.115.645 11.885 0 13-.642 1.114-9.107 6-10.392 6-1.285 0-9.75-4.886-10.392-6C.963 17.885.963 7.115 1.608 6 2.25 4.886 10.715 0 12 0zm2.295 7.738v1.408c.049-.056.104-.108.17-.153l2.836-1.687a.4.4 0 01.6.35v8.688a.4.4 0 01-.6.35L14.465 15c-.066-.04-.121-.094-.17-.15v1.411h-1.5V7.738zm-5.09 0v8.523h-1.5v-1.411c-.049.056-.104.11-.17.15l-2.836 1.687a.4.4 0 01-.6-.35V7.65a.4.4 0 01.6-.35l2.836 1.688c.066.04.121.094.17.15V7.738z"/></svg>
+      </a>
+      <a href="mailto:mustafa.elgendy97@hotmail.com" class="soc" title="Email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Crafted with ❤️ by <span>Mustafa Ahmed Elgendy</span> · <span>Flutter &amp; Android Developer</span> · Cairo &amp; Alexandria · © 2026</p>
+</footer>
+
+<div class="toast" id="toast">✅ Message sent! I'll reply soon.</div>
+
+<script>
+const phrases=["Flutter Developer","Android Developer","Mobile Engineer","Dart & Kotlin Dev"];
+let pi=0,ci=0,del=false;
+const tel=document.getElementById('typed');
+function type(){
+  const p=phrases[pi];
+  if(!del){tel.textContent=p.slice(0,++ci);if(ci===p.length){del=true;setTimeout(type,1700);return}}
+  else{tel.textContent=p.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length}}
+  setTimeout(type,del?48:85);
+}
+type();
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+const bo=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.querySelectorAll('.barfill').forEach(b=>b.style.width=b.dataset.w+'%')})},{threshold:.2});
+document.querySelectorAll('#skills').forEach(el=>bo.observe(el));
+function handleSubmit(e){e.preventDefault();const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);e.target.reset()}
+</script>
+</body>
+</html>
